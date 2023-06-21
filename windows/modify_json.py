@@ -1,10 +1,19 @@
 import json
 import PySimpleGUI as sg
+from blocks import global_var as gv
 
 def str_to_arr(s):
-    s.replace(' ', '')
-    arr = int(s.split(','))
-    return arr
+    print(s)
+    arr = s.split(' ')
+    arr_n = []
+    for i in arr:
+        arr_n.append(int(i))
+    return arr_n
+def arr_to_str(arr):
+    s = ''
+    for a in arr:
+        s += str(a) + ' '
+    return s[:-1]
 
 
 def open_window_modify_json_main(flag_advanced):
@@ -18,23 +27,36 @@ def open_window_modify_json_main(flag_advanced):
     open_window_modify_json(list_changeble)
 
 def open_window_modify_json(list_changeble):
+    type_dict = {}
+    for key_name in list_changeble:
+        type_dict[key_name] = str(type(gv.getv(key_name))).replace("<class '", "").replace("'>", "")
     json_filename = './configs/config.json'
     with open(json_filename, "r") as jsonFile:
         data = json.load(jsonFile)
     jsonFile.close()
     layout = [[sg.Text('Modify the needed attributes')]]
     for key_name in list_changeble:
+        if type_dict[key_name] == 'list':
+            data[key_name] = arr_to_str(data['arr_drives'])
+    for key_name in list_changeble:
         layout.append([sg.Text(key_name, size=(15, 1)), sg.InputText(data[key_name], key = key_name)])
-    layout.append([sg.Submit(), sg.Cancel()])
+    layout.append([sg.Button('submit'), sg.Button('cancel')])
     window = sg.Window('Simple data entry window', layout)
     event, values = window.read()
     window.close()
-    for key_name in list_changeble:
-        if len(values[key_name]) > 0:
-            data[key_name] = values[key_name]
-    if len(values['arr_drives']) > 0:
-        data['arr_drives'] = str_to_arr(values['arr_drives'])
-    with open(json_filename, "w") as jsonFile:
-        json.dump(data, jsonFile, indent = 2)
-    jsonFile.close()
+    if event == 'submit':
+        for key_name in list_changeble:
+            if len(values[key_name]) > 0:
+                if type_dict[key_name] == 'str':
+                    data[key_name] = values[key_name]
+                elif type_dict[key_name] == 'int':
+                    data[key_name] = int(values[key_name])
+                elif type_dict[key_name] == 'list':
+                    data[key_name] = str_to_arr(values[key_name])
+
+
+
+        with open(json_filename, "w") as jsonFile:
+            json.dump(data, jsonFile, indent = 2)
+        jsonFile.close()
 
