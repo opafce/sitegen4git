@@ -1,6 +1,6 @@
 from blocks import global_var as gv
 
-size_of_font = gv.getv('size_of_font')
+size_of_font = str(gv.getv('size_of_font'))
 
 # html oftenly used unchanged part of code
 style_list_string = '''<style>
