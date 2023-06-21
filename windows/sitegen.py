@@ -155,7 +155,6 @@ def random_list_gen(arr_root, arr_relative_root, arr_entry, arr_vdio, ):  # main
     return arr_root_r, arr_relative_root_r, arr_entry_r, arr_vdio_r
 
 def open_window_generate_site():  # a windowed script that generates all the pages of the site
-    db_preloaded = preload_db()
     root_main = gv.getv('root_main')
     number_of_disks = len(gv.getv('arr_drives'))
     number_of_random_pages = get_n_video() // gv.getv('number_of_video_per_random_page')
@@ -169,6 +168,7 @@ def open_window_generate_site():  # a windowed script that generates all the pag
     arr_entry_date = get_arr_of_entry_sorted_by_datetime()
     open_window_fill_db()
     open_window_remove_extra_files_from_db()
+    db_preloaded = preload_db()
     time_last = time.time()
     time_last2 = time.time()
     text = 'Started'
