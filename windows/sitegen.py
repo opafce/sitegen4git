@@ -10,6 +10,9 @@ from windows.fill_db import open_window_fill_db
 from windows.extra_files import open_window_remove_extra_files_from_db
 from blocks.utilities import seconds_to_time, create_image_tmp, get_n_video
 from blocks.preload import preload_db
+from windows.update_progress import update_progress
+from configs.templates import style_list_string, cat_1_3, cat_2_3, cat_3_3
+from blocks.is_ckeck import is_liked, get_duration_and_quality
 
 arr_root = []  # initialization of global arrays needed for building random pages structureg for later random chose from them
 arr_relative_root = []
@@ -152,10 +155,7 @@ def random_list_gen(arr_root, arr_relative_root, arr_entry, arr_vdio, ):  # main
     return arr_root_r, arr_relative_root_r, arr_entry_r, arr_vdio_r
 
 def open_window_generate_site():  # a windowed script that generates all the pages of the site
-    from windows.update_progress import update_progress
     db_preloaded = preload_db()
-    from configs.templates import style_list_string, cat_1_3, cat_2_3, cat_3_3
-    from blocks.is_ckeck import is_liked, get_duration_and_quality
     root_main = gv.getv('root_main')
     number_of_disks = len(gv.getv('arr_drives'))
     number_of_random_pages = get_n_video() // gv.getv('number_of_video_per_random_page')

@@ -172,7 +172,7 @@ def open_window_remove_extra_files_from_db():  # removes extra entires from db
         for i in range(len_db_left):
             cnt1 += 1
             querry_by_id_delete(arr_in_db[i]['id_entry'], arr_in_db[i]['id_video'])
-            window['extra_files'].update('Deleting entires in a db:' + str(int(cnt / number_of_entry * 100)) + ' %')
+            window['extra_files'].update('Deleting entires in a db:' + str(int(cnt1 / number_of_entry * 100)) + ' %')
             progress_bar_extra_files.UpdateBar(int(cnt1 / len_db_left * 100))
             window.refresh()
         window['extra_files'].update('Finished')

@@ -64,7 +64,9 @@ def querry_by_id_duration_and_quality(id_entry, id_video,
     return query3, query4
 
 def querry_by_id_datetime(id_entry, id_video, filename, db_preloaded):
-    datetime.datetime.fromtimestamp(int(os.path.getctime(filename)))  # returns a querry string for datetime from the db
+    # returns a querry string for datetime from the db
+
+    querry_datetime = str(datetime.datetime.fromtimestamp(int(os.path.getctime(filename))))
     len_db = len(db_preloaded)
     cnt = -1  # flag and counter
     query5 = ''
@@ -74,7 +76,6 @@ def querry_by_id_datetime(id_entry, id_video, filename, db_preloaded):
             break
     if cnt >= 0:
         if str(db_preloaded[cnt]['datetime']) == '0000-00-00 00:00:00':
-            query5 = '''UPDATE categories SET `datetime` = "''' + str(datetime.fromtimestamp(int(os.path.getmtime(
-                filename)))) + '''" WHERE `id_video` = "''' + id_video + '''" AND `id_entry` = "''' + id_entry + '''"'''
+            query5 = '''UPDATE categories SET `datetime` = "''' + querry_datetime + '''" WHERE `id_video` = "''' + id_video + '''" AND `id_entry` = "''' + id_entry + '''"'''
     return query5
 
