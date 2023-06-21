@@ -10,7 +10,7 @@ def update_progress():  # a function to generate the progress html file
     otstup_per = gv.getv('otstup_per')
     otstup_n_video = gv.getv('otstup_n_video')
     otstup_size = gv.getv('otstup_size')
-    size_of_font = gv.getv('size_of_font')
+    size_of_font = str(gv.getv('size_of_font'))
     from configs.templates import style_string_color
     file_html = codecs.open(root_main + "index1.html", "w", encoding='utf-8')
     video_all_n = 0

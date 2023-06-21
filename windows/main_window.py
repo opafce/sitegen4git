@@ -16,15 +16,18 @@ from windows.fill_db import open_window_fill_db
 from windows.postergen import open_window_postergen
 from windows.sitegen import open_window_generate_site
 from windows.check_ios import open_window_check_ios
+from windows.modify_json import open_window_modify_json_main
 
-root_main = gv.getv('root_main')
-number_of_disks = len(gv.getv('arr_drives'))
 
-db_preloaded = []
-db_preloaded_delete = []
+
+
 def open_window_main():  # main window to run all the above functions
-    folder_check()
-    copy_like_btb_img()
+    if gv.getv('root_main') == '' or gv.getv('db_host') == '' or gv.getv(
+            'db_user') == '' or gv.getv('db_database') == '':
+        open_window_modify_json_main(0)
+    if gv.getv('root_main') != '':
+        folder_check()
+        copy_like_btb_img()
     root_main = gv.getv('root_main')
     root_notepad = gv.getv('root_notepad')
     filename_balancer = gv.getv('filename_balancer')
@@ -58,7 +61,9 @@ def open_window_main():  # main window to run all the above functions
               [sg.Button("Generate_site")],
               [sg.Button("Update_progress")],
               [],
-              [sg.Button("Check_iOS"), sg.Button("iOS_verify")]
+              [sg.Button("Check_iOS"), sg.Button("iOS_verify")],
+              [sg.Text("modify config")],
+              [sg.Button("basic"), sg.Button("advanced")]
               ]
 
     # Create the window
@@ -172,5 +177,9 @@ def open_window_main():  # main window to run all the above functions
             open_window_check_ios(0)
         if event == 'iOS_verify':
             open_window_check_ios(1)
+        if event == 'basic':
+            open_window_modify_json_main(0)
+        if event == 'advanced':
+            open_window_modify_json_main(1)
 
     window.close()

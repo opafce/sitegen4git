@@ -244,3 +244,4 @@ def copy_like_btb_img():
     if not os.path.exists(dst + 'unlike.jpg'):
         shutil.copy('./configs/unlike.jpg', dst + 'unlike.jpg')
 
+

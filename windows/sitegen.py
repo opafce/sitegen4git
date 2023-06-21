@@ -128,14 +128,14 @@ def print_video_into_html_footer(root, relative_root, entry, vdio, db_preloaded)
 
 
 def random_list_gen(arr_root, arr_relative_root, arr_entry, arr_vdio, ):  # main random gen function
-    number_of_video_per_page = gv.getv('number_of_video_per_page')
+    number_of_video_per_random_page = gv.getv('number_of_video_per_random_page')
     arr_root_r = []
     arr_relative_root_r = []
     arr_entry_r = []
     arr_vdio_r = []
     costyl = 0  # nice name for a counter, defines the stop condition of a random page generation process
     #   (at he end there is not much to choose from)
-    while len(arr_root_r) < number_of_video_per_page:
+    while len(arr_root_r) < number_of_video_per_random_page:
         rnd = random.randrange(len(arr_root))
         if arr_entry[rnd] in arr_entry_r and costyl < 100:
             pass
@@ -158,8 +158,8 @@ def open_window_generate_site():  # a windowed script that generates all the pag
     from blocks.is_ckeck import is_liked, get_duration_and_quality
     root_main = gv.getv('root_main')
     number_of_disks = len(gv.getv('arr_drives'))
-    number_of_random_pages = get_n_video() // gv.getv('number_of_video_per_page')
-    number_of_video_per_page = gv.getv('number_of_video_per_page')
+    number_of_random_pages = get_n_video() // gv.getv('number_of_video_per_random_page')
+    number_of_video_per_random_page = gv.getv('number_of_video_per_random_page')
     estimation_number = gv.getv('estimation_number')
     number_of_video_per_entry_page = gv.getv('number_of_video_per_entry_page')
     db_host = gv.getv('db_host')
@@ -539,13 +539,13 @@ def open_window_generate_site():  # a windowed script that generates all the pag
             file_random.write(
                 '''  function getImageTag() {\n    var img = '<p><a href=\"';\n    var randomIndex = Math.floor(Math.random() * imageURLs.length);\n    img += imageURLs[randomIndex];\n    img += '\" style="font-size: 100px; text-align:right;">ещё случайные видео</a></p><br/>';\n    return img;}\n</script>\n''')
             arr_root_r, arr_relative_root_r, arr_entry_r, arr_vdio_r = random_list_gen(arr_root, arr_relative_root, arr_entry, arr_vdio)
-            for i in range(number_of_video_per_page):
+            for i in range(number_of_video_per_random_page):
                 str_html_header = print_video_into_html_header(arr_root_r[i], arr_relative_root_r[i], arr_entry_r[i], arr_vdio_r[i])
                 file_random.write(str_html_header)
             file_random.write('''</head>\n<body>\n''')
             file_random.write(
                 '''<p><center><a href="../index.html" '''  '''style="font-size: 50px">назад</a></center></p><br/><br/><br/>\n''')
-            for i in range(number_of_video_per_page):
+            for i in range(number_of_video_per_random_page):
                 str_html_footer = print_video_into_html_footer(arr_root_r[i], arr_relative_root_r[i], arr_entry_r[i],
                                                                arr_vdio_r[i], db_preloaded)
                 # file_random.write('''<p><center><a href="''' +'''../entries/''' + arr_entry_r[i] +'''.html" '''  '''style="font-size: 50px">''' + arr_entry_r[i] + '''</a></center></p><br/>\n''')
