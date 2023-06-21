@@ -3,7 +3,6 @@ import PySimpleGUI as sg
 from blocks import global_var as gv
 
 def str_to_arr(s):
-    print(s)
     arr = s.split(' ')
     arr_n = []
     for i in arr:
@@ -53,9 +52,6 @@ def open_window_modify_json(list_changeble):
                     data[key_name] = int(values[key_name])
                 elif type_dict[key_name] == 'list':
                     data[key_name] = str_to_arr(values[key_name])
-
-
-
         with open(json_filename, "w") as jsonFile:
             json.dump(data, jsonFile, indent = 2)
         jsonFile.close()
