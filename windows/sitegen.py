@@ -5,6 +5,7 @@ import os
 from PIL import Image
 import shutil
 import random
+import math
 import time
 from windows.fill_db import open_window_fill_db
 from windows.extra_files import open_window_remove_extra_files_from_db
@@ -442,7 +443,7 @@ def open_window_generate_site():  # a windowed script that generates all the pag
                 jpg_all_n += n_jpg
                 gif_all_n += n_gifs
 
-                entry_number_of_pages = n_video // number_of_video_per_entry_page + 1
+                entry_number_of_pages = math.ceil(n_video / number_of_video_per_entry_page)
                 filenames_vdeo_arr = []
                 for j in range(entry_number_of_pages):
                     filenames_vdeo_arr.append(
